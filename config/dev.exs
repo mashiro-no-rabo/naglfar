@@ -13,8 +13,8 @@ config :phoenix, :stacktrace_depth, 20
 
 config :naglfar, Naglfar.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "yaml",
-  password: "yaml",
+  username: "postgres",
+  password: "postgres",
   database: "naglfar_dev",
   hostname: "localhost",
   pool_size: 10
