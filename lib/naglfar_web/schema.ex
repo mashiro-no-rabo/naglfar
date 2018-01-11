@@ -5,8 +5,12 @@ defmodule Naglfar.Schema do
 
   query do
     field :types, list_of(:inventory_type) do
-      arg :type_id, :id
       resolve &Resolvers.Inventory.inventory_types/3
+    end
+
+    field :type, :inventory_type do
+      arg :id, :id
+      resolve &Resolvers.Inventory.inventory_type/3
     end
   end
 
