@@ -16,7 +16,9 @@ defmodule Naglfar.Schema do
 
   object :inventory_type do
     field :type_id, :id
-    field :group_id, :integer
+    field :group, :inventory_group do
+      resolve &Resolvers.Inventory.type_group/3
+    end
     field :name, :string
     field :description, :string
     field :mass, :float
@@ -29,5 +31,17 @@ defmodule Naglfar.Schema do
     field :icon_id, :integer
     field :sound_id, :integer
     field :graphic_id, :integer
+  end
+
+  object :inventory_group do
+    field :group_id, :id
+    field :category_id, :integer
+    field :name, :string
+    field :icon_id, :integer
+    field :use_base_price, :boolean
+    field :anchored, :boolean
+    field :anchorable, :boolean
+    field :fittable_non_singleton, :boolean
+    field :published, :boolean
   end
 end

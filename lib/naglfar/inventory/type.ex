@@ -1,9 +1,10 @@
 defmodule Naglfar.Inventory.Type do
   use Ecto.Schema
+  alias Naglfar.Inventory.Group
 
   @primary_key {:type_id, :id, source: :typeID}
   schema "invTypes" do
-    field :group_id, :integer, source: :groupID
+    belongs_to :group, Group, source: :groupID, references: :group_id
     field :name, :string, source: :typeName
     field :description, :string
     field :mass, :float

@@ -8,4 +8,8 @@ defmodule Naglfar.Resolvers.Inventory do
   def inventory_type(_, %{id: id}, _) do
     {:ok, Inventory.type(id)}
   end
+
+  def type_group(type, _, _) do
+    {:ok, Inventory.group(type.group_id)}
+  end
 end
