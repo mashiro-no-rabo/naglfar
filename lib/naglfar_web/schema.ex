@@ -31,6 +31,10 @@ defmodule Naglfar.Schema do
     field :icon_id, :integer
     field :sound_id, :integer
     field :graphic_id, :integer
+
+    field :dogma_attributes, list_of(:dogma_attribute) do
+      resolve &Resolvers.Inventory.type_dogma_attributes/3
+    end
   end
 
   object :inventory_group do
@@ -43,5 +47,12 @@ defmodule Naglfar.Schema do
     field :anchorable, :boolean
     field :fittable_non_singleton, :boolean
     field :published, :boolean
+  end
+
+  object :dogma_attribute do
+    field :type_id, :integer
+    field :attribute_id, :integer
+    field :value_int, :integer
+    field :value_float, :float
   end
 end

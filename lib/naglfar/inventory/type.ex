@@ -1,6 +1,7 @@
 defmodule Naglfar.Inventory.Type do
   use Ecto.Schema
   alias Naglfar.Inventory.Group
+  alias Naglfar.Dogma.TypeAttribute
 
   @primary_key {:type_id, :id, source: :typeID}
   schema "invTypes" do
@@ -18,5 +19,7 @@ defmodule Naglfar.Inventory.Type do
     field :icon_id, :integer, source: :iconID
     field :sound_id, :integer, source: :soundID
     field :graphic_id, :integer, source: :graphicID
+
+    has_many :dogma_attribute, TypeAttribute, references: :type_id
   end
 end
