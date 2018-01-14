@@ -1,5 +1,5 @@
-defmodule Naglfar.Resolvers.Inventory do
-  alias Naglfar.{Inventory, Dogma}
+defmodule NaglfarWeb.Resolvers.Inventory do
+  alias Naglfar.Inventory
 
   def inventory_types(_, args, _) do
     {:ok, Inventory.list_types(args)}
@@ -11,9 +11,5 @@ defmodule Naglfar.Resolvers.Inventory do
 
   def type_group(type, _, _) do
     {:ok, Inventory.group(type.group_id)}
-  end
-
-  def type_dogma_attributes(type, _, _) do
-    {:ok, Dogma.list_type_attributes(type.type_id)}
   end
 end

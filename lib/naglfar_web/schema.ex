@@ -1,7 +1,7 @@
 defmodule Naglfar.Schema do
   use Absinthe.Schema
 
-  alias Naglfar.Resolvers
+  alias NaglfarWeb.Resolvers
 
   query do
     field :types, list_of(:inventory_type) do
@@ -32,8 +32,12 @@ defmodule Naglfar.Schema do
     field :sound_id, :integer
     field :graphic_id, :integer
 
-    field :dogma_attributes, list_of(:dogma_attribute) do
-      resolve &Resolvers.Inventory.type_dogma_attributes/3
+    field :dogma_attributes, list_of(:dogma_type_attribute) do
+      resolve &Resolvers.Dogma.list_type_attributes/3
+    end
+
+    field :dogma_effects, list_of(:dogma_type_effect) do
+      resolve &Resolvers.Dogma.list_type_effects/3
     end
   end
 
@@ -49,10 +53,31 @@ defmodule Naglfar.Schema do
     field :published, :boolean
   end
 
-  object :dogma_attribute do
-    field :type_id, :integer
-    field :attribute_id, :integer
+  object :dogma_type_attribute do
+    field :attribute, :dogma_attribute do
+      resolve &Resolvers.Dogma.attribute/3
+    end
     field :value_int, :integer
     field :value_float, :float
+  end
+
+  object :dogma_attribute do
+    field :attribute_id, :id
+    field :name, :string
+    field :description, :string
+    field :icon_id, :integer
+    field :default_value, :float
+    field :published, :boolean
+    field :display_name, :string
+    field :unit_id, :integer
+    field :stackable, :boolean
+    field :high_is_good, :boolean
+    field :category_id, :integer
+  end
+
+  object :dogma_type_effect do
+    field :type_id, :integer
+    field :effect_id, :integer
+    field :is_default, :boolean
   end
 end
