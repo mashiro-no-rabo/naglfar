@@ -76,8 +76,15 @@ defmodule Naglfar.Schema do
   end
 
   object :dogma_type_effect do
-    field :type_id, :integer
-    field :effect_id, :integer
+    field :effect, :dogma_effect do
+      resolve &Resolvers.Dogma.effect/3
+    end
     field :is_default, :boolean
+  end
+
+  object :dogma_effect do
+    field :effect_id, :id
+    field :name, :string
+    field :description, :string
   end
 end

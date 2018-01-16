@@ -15,4 +15,11 @@ defmodule NaglfarWeb.Resolvers.Dogma do
   def attribute(_, _, _) do
     {:error, "unrecognized entry point for dogma attribute"}
   end
+
+  def effect(%Naglfar.Dogma.TypeEffect{effect_id: id}, _, _) do
+    {:ok, Dogma.get_effect(id)}
+  end
+  def effect(_, _, _) do
+    {:error, "unrecognized entry point for dogma effect"}
+  end
 end
