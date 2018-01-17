@@ -1,5 +1,5 @@
 defmodule Naglfar.Dogma do
-  import Ecto.Query, warn: :false
+  import Ecto.Query, warn: false
   alias Naglfar.Repo
   alias Naglfar.Dogma.{TypeAttribute, TypeEffect, Attribute, Effect}
 

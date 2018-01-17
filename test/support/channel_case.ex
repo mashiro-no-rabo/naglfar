@@ -25,13 +25,13 @@ defmodule NaglfarWeb.ChannelCase do
     end
   end
 
-
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Naglfar.Repo)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Naglfar.Repo, {:shared, self()})
     end
+
     :ok
   end
-
 end

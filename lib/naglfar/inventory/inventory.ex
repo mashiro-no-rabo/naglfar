@@ -1,5 +1,5 @@
 defmodule Naglfar.Inventory do
-  import Ecto.Query, warn: :false
+  import Ecto.Query, warn: false
   alias Naglfar.Repo
   alias Naglfar.Inventory.{Type, Group}
 
