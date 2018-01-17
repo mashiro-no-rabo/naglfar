@@ -9,16 +9,18 @@ defmodule Naglfar.Schema do
     end
 
     field :type, :inventory_type do
-      arg :id, :id
+      arg :id, non_null(:id)
       resolve &Resolvers.Inventory.inventory_type/3
     end
   end
 
   object :inventory_type do
     field :type_id, :id
+
     field :group, :inventory_group do
       resolve &Resolvers.Inventory.type_group/3
     end
+
     field :name, :string
     field :description, :string
     field :mass, :float
@@ -57,6 +59,7 @@ defmodule Naglfar.Schema do
     field :attribute, :dogma_attribute do
       resolve &Resolvers.Dogma.attribute/3
     end
+
     field :value_int, :integer
     field :value_float, :float
   end
@@ -79,6 +82,7 @@ defmodule Naglfar.Schema do
     field :effect, :dogma_effect do
       resolve &Resolvers.Dogma.effect/3
     end
+
     field :is_default, :boolean
   end
 
