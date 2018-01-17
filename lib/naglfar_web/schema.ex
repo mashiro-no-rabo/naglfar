@@ -86,5 +86,30 @@ defmodule Naglfar.Schema do
     field :effect_id, :id
     field :name, :string
     field :description, :string
+    field :effect_category_id, :integer
+    field :pre_expression, :integer
+    field :post_expression, :integer
+    field :guid, :string
+    field :icon_id, :integer
+    field :is_offensive, :boolean
+    field :is_assistance, :boolean
+    field :duration_attribute_id, :integer
+    field :tracking_speed_attribute_id, :integer
+    field :discharge_attribute_id, :integer
+    field :range_attribute_id, :integer
+    field :falloff_attribute_id, :integer
+    field :disallow_auto_repeat, :boolean
+    field :published, :boolean
+    field :display_name, :string
+    field :is_warp_safe, :boolean
+    field :range_chance, :boolean
+    field :electronic_chance, :boolean
+    field :propulsion_chance, :boolean
+    field :distribution, :integer
+    field :sfx_name, :string
+    field :npc_usage_chance_attribute_id, :integer
+    field :npc_activation_chance_attribute_id, :integer
+    field :fitting_usage_chance_attribute_id, :integer
+    field :modifier_info, :string
   end
 end
