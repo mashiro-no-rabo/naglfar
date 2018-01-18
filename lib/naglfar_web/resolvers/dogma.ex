@@ -23,7 +23,7 @@ defmodule NaglfarWeb.Resolvers.Dogma do
     {:error, "unrecognized entry point for dogma effect"}
   end
 
-  def expression_by_id(id) do
-    {:ok, Dogma.get_expression(id)}
+  def expression(_, %{id: id}, %Absinthe.Resolution{context: %{loader: loader}}) do
+    Dogma.load_expression(loader, id)
   end
 end

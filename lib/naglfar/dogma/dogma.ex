@@ -1,5 +1,8 @@
 defmodule Naglfar.Dogma do
   import Ecto.Query, warn: false
+  import Naglfar.Dataloader, only: [ecto_src_name: 0]
+  import Absinthe.Resolution.Helpers, only: [on_load: 2]
+
   alias Naglfar.Repo
   alias Naglfar.Dogma.{TypeAttribute, TypeEffect, Attribute, Effect, Expression}
 
@@ -21,5 +24,14 @@ defmodule Naglfar.Dogma do
 
   def get_expression(id) do
     Repo.one(from e in Expression, where: e.expression_id == ^id)
+  end
+
+  def load_expression(loader, id) do
+    loader
+    |> Dataloader.load(ecto_src_name(), Expression, id)
+    |> on_load(fn loader ->
+      expression = Dataloader.get(loader, ecto_src_name(), Expression, id)
+      {:ok, expression}
+    end)
   end
 end

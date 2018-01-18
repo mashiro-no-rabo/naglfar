@@ -3,6 +3,18 @@ defmodule Naglfar.Schema do
 
   alias NaglfarWeb.Resolvers
 
+  def context(ctx) do
+    loader =
+      Dataloader.new
+      |> Dataloader.add_source(Naglfar.Dataloader.ecto_src_name(), Naglfar.Dataloader.ecto_src())
+
+    Map.put(ctx, :loader, loader)
+  end
+
+  def plugins do
+    [Absinthe.Middleware.Dataloader | Absinthe.Plugin.defaults()]
+  end
+
   query do
     field :types, list_of(:inventory_type) do
       resolve &Resolvers.Inventory.inventory_types/3
@@ -92,13 +104,13 @@ defmodule Naglfar.Schema do
     field :description, :string
     field :effect_category_id, :integer
     field :pre_expression, :dogma_expression do
-      resolve fn effect, _, _ ->
-        Resolvers.Dogma.expression_by_id(effect.pre_expression)
+      resolve fn effect, _, res ->
+        Resolvers.Dogma.expression(effect, %{id: effect.pre_expression}, res)
       end
     end
     field :post_expression, :dogma_expression do
-      resolve fn effect, _, _ ->
-        Resolvers.Dogma.expression_by_id(effect.post_expression)
+      resolve fn effect, _, res ->
+        Resolvers.Dogma.expression(effect, %{id: effect.post_expression}, res)
       end
     end
     field :guid, :string
