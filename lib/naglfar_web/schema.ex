@@ -92,10 +92,14 @@ defmodule Naglfar.Schema do
     field :description, :string
     field :effect_category_id, :integer
     field :pre_expression, :dogma_expression do
-      resolve &Resolvers.Dogma.pre_expression/3
+      resolve fn effect, _, _ ->
+        Resolvers.Dogma.expression_by_id(effect.pre_expression)
+      end
     end
     field :post_expression, :dogma_expression do
-      resolve &Resolvers.Dogma.post_expression/3
+      resolve fn effect, _, _ ->
+        Resolvers.Dogma.expression_by_id(effect.post_expression)
+      end
     end
     field :guid, :string
     field :icon_id, :integer

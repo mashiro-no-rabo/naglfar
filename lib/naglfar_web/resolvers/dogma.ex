@@ -23,17 +23,7 @@ defmodule NaglfarWeb.Resolvers.Dogma do
     {:error, "unrecognized entry point for dogma effect"}
   end
 
-  def pre_expression(%Naglfar.Dogma.Effect{pre_expression: id}, _, _) do
+  def expression_by_id(id) do
     {:ok, Dogma.get_expression(id)}
-  end
-  def pre_expression(_, _, _) do
-    {:error, "entrypoint for dogma expression not a dogma effect"}
-  end
-
-  def post_expression(%Naglfar.Dogma.Effect{post_expression: id}, _, _) do
-    {:ok, Dogma.get_expression(id)}
-  end
-  def post_expression(_, _, _) do
-    {:error, "entrypoint for dogma expression not a dogma effect"}
   end
 end
