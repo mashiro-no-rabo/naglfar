@@ -91,8 +91,12 @@ defmodule Naglfar.Schema do
     field :name, :string
     field :description, :string
     field :effect_category_id, :integer
-    field :pre_expression, :integer
-    field :post_expression, :integer
+    field :pre_expression, :dogma_expression do
+      resolve &Resolvers.Dogma.pre_expression/3
+    end
+    field :post_expression, :dogma_expression do
+      resolve &Resolvers.Dogma.post_expression/3
+    end
     field :guid, :string
     field :icon_id, :integer
     field :is_offensive, :boolean
@@ -115,5 +119,18 @@ defmodule Naglfar.Schema do
     field :npc_activation_chance_attribute_id, :integer
     field :fitting_usage_chance_attribute_id, :integer
     field :modifier_info, :string
+  end
+
+  object :dogma_expression do
+    field :expression_id, :id
+    field :operand_id, :integer
+    field :arg1, :integer
+    field :arg2, :integer
+    field :expression_value, :string
+    field :description, :string
+    field :expression_name, :string
+    field :expression_type_id, :integer
+    field :expression_group_id, :integer
+    field :expression_attribute_id, :integer
   end
 end
