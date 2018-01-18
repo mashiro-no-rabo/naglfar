@@ -20,7 +20,7 @@ defmodule Naglfar.Inventory.Type do
     field :sound_id, :integer, source: :soundID
     field :graphic_id, :integer, source: :graphicID
 
-    has_many :dogma_attribute, Dogma.TypeAttribute, references: :type_id
-    has_many :dogma_effects, Dogma.TypeEffect, references: :type_id
+    has_many :dogma_attribute, Dogma.TypeAttribute, references: :type_id, foreign_key: :type_id
+    has_many :dogma_effects, Dogma.TypeEffect, references: :type_id, foreign_key: :type_id
   end
 end
