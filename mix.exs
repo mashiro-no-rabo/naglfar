@@ -37,6 +37,7 @@ defmodule Naglfar.Mixfile do
       {:absinthe_plug, "~> 1.4"},
       {:absinthe_phoenix, "~> 1.4"},
       {:dataloader, "~> 1.0"},
+      {:jason, "~> 1.0"},
     ]
   end
 
