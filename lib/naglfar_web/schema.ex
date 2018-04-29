@@ -84,10 +84,22 @@ defmodule Naglfar.Schema do
     field :default_value, :float
     field :published, :boolean
     field :display_name, :string
-    field :unit_id, :integer
     field :stackable, :boolean
     field :high_is_good, :boolean
     field :category_id, :integer
+
+    field :unit, :eve_unit do
+      resolve fn attribute, _, res ->
+        Resolvers.Dogma.unit(attribute, %{id: attribute.unit_id}, res)
+      end
+    end
+  end
+
+  object :eve_unit do
+    field :unit_id, :id
+    field :name, :string
+    field :display_name, :string
+    field :description, :string
   end
 
   object :dogma_type_effect do

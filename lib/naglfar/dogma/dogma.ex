@@ -4,7 +4,7 @@ defmodule Naglfar.Dogma do
   import Absinthe.Resolution.Helpers, only: [on_load: 2]
 
   alias Naglfar.Repo
-  alias Naglfar.Dogma.{TypeAttribute, TypeEffect, Attribute, Effect, Expression}
+  alias Naglfar.Dogma.{TypeAttribute, TypeEffect, Attribute, Effect, Expression, EveUnit}
 
   def list_type_attributes(type_id) do
     Repo.all(from ta in TypeAttribute, where: ta.type_id == ^type_id)
@@ -32,6 +32,15 @@ defmodule Naglfar.Dogma do
     |> on_load(fn loader ->
       expression = Dataloader.get(loader, ecto_src_name(), Expression, id)
       {:ok, expression}
+    end)
+  end
+
+  def load_unit(loader, id) do
+    loader
+    |> Dataloader.load(ecto_src_name(), EveUnit, id)
+    |> on_load(fn loader ->
+      unit = Dataloader.get(loader, ecto_src_name(), EveUnit, id)
+      {:ok, unit}
     end)
   end
 end

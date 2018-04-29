@@ -26,4 +26,8 @@ defmodule NaglfarWeb.Resolvers.Dogma do
   def expression(_, %{id: id}, %Absinthe.Resolution{context: %{loader: loader}}) do
     Dogma.load_expression(loader, id)
   end
+
+  def unit(_, %{id: id}, %Absinthe.Resolution{context: %{loader: loader}}) do
+    Dogma.load_unit(loader, id)
+  end
 end
