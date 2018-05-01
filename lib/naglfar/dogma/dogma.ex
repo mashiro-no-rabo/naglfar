@@ -4,7 +4,16 @@ defmodule Naglfar.Dogma do
   import Absinthe.Resolution.Helpers, only: [on_load: 2]
 
   alias Naglfar.Repo
-  alias Naglfar.Dogma.{TypeAttribute, TypeEffect, Attribute, Effect, Expression, EveUnit}
+
+  alias Naglfar.Dogma.{
+    TypeAttribute,
+    TypeEffect,
+    Attribute,
+    Effect,
+    Expression,
+    EveUnit,
+    Operands
+  }
 
   def list_type_attributes(type_id) do
     Repo.all(from ta in TypeAttribute, where: ta.type_id == ^type_id)
