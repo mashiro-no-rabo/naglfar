@@ -6,7 +6,7 @@ defmodule Naglfar.Application do
 
     children = [
       supervisor(Naglfar.Repo, []),
-      supervisor(NaglfarWeb.Endpoint, []),
+      supervisor(NaglfarWeb.Endpoint, [])
     ]
 
     opts = [strategy: :one_for_one, name: Naglfar.Supervisor]
