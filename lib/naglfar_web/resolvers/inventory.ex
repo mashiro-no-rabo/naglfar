@@ -12,4 +12,8 @@ defmodule NaglfarWeb.Resolvers.Inventory do
   def type_group(type, _, _) do
     {:ok, Inventory.group(type.group_id)}
   end
+
+  def category(_, %{id: id}, %Absinthe.Resolution{context: %{loader: loader}}) do
+    Inventory.load_category(loader, id)
+  end
 end

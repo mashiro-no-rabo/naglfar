@@ -55,13 +55,25 @@ defmodule Naglfar.Schema do
 
   object :inventory_group do
     field :group_id, :id
-    field :category_id, :integer
     field :name, :string
     field :icon_id, :integer
     field :use_base_price, :boolean
     field :anchored, :boolean
     field :anchorable, :boolean
     field :fittable_non_singleton, :boolean
+    field :published, :boolean
+
+    field :category, :inventory_category do
+      resolve fn grp, _, res ->
+        Resolvers.Inventory.category(grp, %{id: grp.category_id}, res)
+      end
+    end
+  end
+
+  object :inventory_category do
+    field :category_id, :id
+    field :name, :string
+    field :icon_id, :integer
     field :published, :boolean
   end
 
@@ -87,8 +99,8 @@ defmodule Naglfar.Schema do
     field :category_id, :integer
 
     field :unit, :eve_unit do
-      resolve fn attribute, _, res ->
-        Resolvers.Dogma.unit(attribute, %{id: attribute.unit_id}, res)
+      resolve fn attr, _, res ->
+        Resolvers.Dogma.unit(attr, %{id: attr.unit_id}, res)
       end
     end
   end
