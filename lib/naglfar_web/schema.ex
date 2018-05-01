@@ -4,9 +4,7 @@ defmodule Naglfar.Schema do
   alias NaglfarWeb.Resolvers
 
   def context(ctx) do
-    loader =
-      Dataloader.new
-      |> Dataloader.add_source(Naglfar.Dataloader.ecto_src_name(), Naglfar.Dataloader.ecto_src())
+    loader = Naglfar.Dataloader.new()
 
     Map.put(ctx, :loader, loader)
   end
@@ -115,16 +113,19 @@ defmodule Naglfar.Schema do
     field :name, :string
     field :description, :string
     field :effect_category_id, :integer
+
     field :pre_expression, :dogma_expression do
       resolve fn effect, _, res ->
         Resolvers.Dogma.expression(effect, %{id: effect.pre_expression}, res)
       end
     end
+
     field :post_expression, :dogma_expression do
       resolve fn effect, _, res ->
         Resolvers.Dogma.expression(effect, %{id: effect.post_expression}, res)
       end
     end
+
     field :guid, :string
     field :icon_id, :integer
     field :is_offensive, :boolean
@@ -151,7 +152,13 @@ defmodule Naglfar.Schema do
 
   object :dogma_expression do
     field :expression_id, :id
-    field :operand_id, :integer
+
+    field :operand, :dogma_operand do
+      resolve fn exp, _, res ->
+        Resolvers.Dogma.operand(exp, %{id: exp.operand_id}, res)
+      end
+    end
+
     field :arg1, :integer
     field :arg2, :integer
     field :expression_value, :string
@@ -160,5 +167,20 @@ defmodule Naglfar.Schema do
     field :expression_type_id, :integer
     field :expression_group_id, :integer
     field :expression_attribute_id, :integer
+  end
+
+  object :dogma_operand do
+    field :operand_id, :id, resolve: source("operandID")
+    field :operand_key, :string, resolve: source("operandKey")
+    field :description, :string, resolve: source("description")
+    field :format, :string, resolve: source("format")
+    field :python_format, :string, resolve: source("pythonFormat")
+    field :arg1_category_id, :integer, resolve: source("arg1categoryID")
+    field :arg2_category_id, :integer, resolve: source("arg2categoryID")
+    field :result_category_id, :integer, resolve: source("resultCategoryID")
+  end
+
+  defp source(key) do
+    fn map, _, _ -> {:ok, Map.get(map, key)} end
   end
 end

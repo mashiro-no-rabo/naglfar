@@ -12,6 +12,7 @@ defmodule NaglfarWeb.Resolvers.Dogma do
   def attribute(%Naglfar.Dogma.TypeAttribute{attribute_id: id}, _, _) do
     {:ok, Dogma.get_attribute(id)}
   end
+
   def attribute(_, _, _) do
     {:error, "unrecognized entry point for dogma attribute"}
   end
@@ -19,6 +20,7 @@ defmodule NaglfarWeb.Resolvers.Dogma do
   def effect(%Naglfar.Dogma.TypeEffect{effect_id: id}, _, _) do
     {:ok, Dogma.get_effect(id)}
   end
+
   def effect(_, _, _) do
     {:error, "unrecognized entry point for dogma effect"}
   end
@@ -29,5 +31,9 @@ defmodule NaglfarWeb.Resolvers.Dogma do
 
   def unit(_, %{id: id}, %Absinthe.Resolution{context: %{loader: loader}}) do
     Dogma.load_unit(loader, id)
+  end
+
+  def operand(_, %{id: id}, %Absinthe.Resolution{context: %{loader: loader}}) do
+    Dogma.load_operand(loader, id)
   end
 end

@@ -3,11 +3,15 @@ defmodule Naglfar.Dataloader do
   Defines dataloader setup within Naglfar context.
   """
 
-  def ecto_src_name() do
-    __MODULE__.Ecto
-  end
+  defmacro ecto_src, do: __MODULE__.Ecto
+  defmacro dogma_operands_src, do: __MODULE__.DogmaOperands
 
-  def ecto_src() do
-    Dataloader.Ecto.new(Naglfar.Repo)
+  def new() do
+    Dataloader.new()
+    |> Dataloader.add_source(ecto_src(), Dataloader.Ecto.new(Naglfar.Repo))
+    |> Dataloader.add_source(
+      dogma_operands_src(),
+      Dataloader.KV.new(&Naglfar.Dogma.Operands.dataloader_load_func/2)
+    )
   end
 end

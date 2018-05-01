@@ -1,6 +1,6 @@
 defmodule Naglfar.Dogma do
   import Ecto.Query, warn: false
-  import Naglfar.Dataloader, only: [ecto_src_name: 0]
+  import Naglfar.Dataloader, only: :macros
   import Absinthe.Resolution.Helpers, only: [on_load: 2]
 
   alias Naglfar.Repo
@@ -28,19 +28,28 @@ defmodule Naglfar.Dogma do
 
   def load_expression(loader, id) do
     loader
-    |> Dataloader.load(ecto_src_name(), Expression, id)
+    |> Dataloader.load(ecto_src(), Expression, id)
     |> on_load(fn loader ->
-      expression = Dataloader.get(loader, ecto_src_name(), Expression, id)
+      expression = Dataloader.get(loader, ecto_src(), Expression, id)
       {:ok, expression}
     end)
   end
 
   def load_unit(loader, id) do
     loader
-    |> Dataloader.load(ecto_src_name(), EveUnit, id)
+    |> Dataloader.load(ecto_src(), EveUnit, id)
     |> on_load(fn loader ->
-      unit = Dataloader.get(loader, ecto_src_name(), EveUnit, id)
+      unit = Dataloader.get(loader, ecto_src(), EveUnit, id)
       {:ok, unit}
+    end)
+  end
+
+  def load_operand(loader, id) do
+    loader
+    |> Dataloader.load(dogma_operands_src(), Operands, id)
+    |> on_load(fn loader ->
+      operand = Dataloader.get(loader, dogma_operands_src(), Operands, id)
+      {:ok, operand}
     end)
   end
 end
