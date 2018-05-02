@@ -1,9 +1,7 @@
 use Mix.Config
 
 config :naglfar, NaglfarWeb.Endpoint,
-  load_from_system_env: true,
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  http: [port: 4000, ip: {127, 0, 0, 1}],
 
 config :logger, level: :info
 
