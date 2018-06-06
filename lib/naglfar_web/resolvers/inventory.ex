@@ -16,4 +16,8 @@ defmodule NaglfarWeb.Resolvers.Inventory do
   def category(_, %{id: id}, %Absinthe.Resolution{context: %{loader: loader}}) do
     Inventory.load_category(loader, id)
   end
+
+  def simple_cat(_, %{id: id}, _) do
+    {:ok, Inventory.category(id)}
+  end
 end

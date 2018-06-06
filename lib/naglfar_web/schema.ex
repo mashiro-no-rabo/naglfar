@@ -22,6 +22,11 @@ defmodule Naglfar.Schema do
       arg :id, non_null(:id)
       resolve &Resolvers.Inventory.inventory_type/3
     end
+
+    field :category, :inventory_category do
+      arg :id, non_null(:id)
+      resolve &Resolvers.Inventory.simple_cat/3
+    end
   end
 
   object :inventory_type do

@@ -28,4 +28,9 @@ defmodule Naglfar.Inventory do
       {:ok, category}
     end)
   end
+
+  def category(id) do
+    query = from c in Category, where: c.category_id == ^id
+    Repo.one(query)
+  end
 end
