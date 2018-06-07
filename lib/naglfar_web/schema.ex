@@ -73,6 +73,12 @@ defmodule Naglfar.Schema do
         Resolvers.Inventory.category(grp, %{id: grp.category_id}, res)
       end
     end
+
+    field :types, list_of(:inventory_type) do
+      resolve fn grp, _, res ->
+        Resolvers.Inventory.grp_types(grp, %{id: grp.group_id}, res)
+      end
+    end
   end
 
   object :inventory_category do
@@ -80,6 +86,12 @@ defmodule Naglfar.Schema do
     field :name, :string
     field :icon_id, :integer
     field :published, :boolean
+
+    field :groups, list_of(:inventory_group) do
+      resolve fn cat, _, res ->
+        Resolvers.Inventory.cat_groups(cat, %{id: cat.category_id}, res)
+      end
+    end
   end
 
   object :dogma_type_attribute do

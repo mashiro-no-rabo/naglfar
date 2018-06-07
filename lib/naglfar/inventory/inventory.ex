@@ -33,4 +33,14 @@ defmodule Naglfar.Inventory do
     query = from c in Category, where: c.category_id == ^id
     Repo.one(query)
   end
+
+  def groups_of_category(id) do
+    query = from g in Group, where: g.category_id == ^id
+    Repo.all(query)
+  end
+
+  def types_of_group(id) do
+    query = from t in Type, where: t.group_id == ^id
+    Repo.all(query)
+  end
 end

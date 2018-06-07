@@ -20,4 +20,12 @@ defmodule NaglfarWeb.Resolvers.Inventory do
   def simple_cat(_, %{id: id}, _) do
     {:ok, Inventory.category(id)}
   end
+
+  def cat_groups(_, %{id: id}, _) do
+    {:ok, Inventory.groups_of_category(id)}
+  end
+
+  def grp_types(_, %{id: id}, _) do
+    {:ok, Inventory.types_of_group(id)}
+  end
 end

@@ -1,5 +1,6 @@
 defmodule Naglfar.Inventory.Category do
   use Ecto.Schema
+  alias Naglfar.Inventory.Group
 
   @primary_key {:category_id, :id, source: :categoryID}
   schema "invCategories" do
